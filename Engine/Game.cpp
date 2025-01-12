@@ -32,7 +32,7 @@ Game::Game(MainWindow& wnd)
 	goal(xDist(rng), yDist(rng)),
 	meter(20, 20)
 {
-	std::uniform_real_distribution<float> v(-2.5f, 2.5f);
+	std::uniform_real_distribution<float> v(-2.5f * 60.0f, 2.5f * 60.0f);
 	for (int i = 0; i < nPoos; ++i)
 	{
 		poos[i].Init(xDist(rng), yDist(rng), v(rng), v(rng));
@@ -54,7 +54,7 @@ void Game::UpdateModel()
 	goal.UpdateColor();
 	if (isStarted && !isGameOver)
 	{
-		dude.Update(wnd.kbd);
+		dude.Update(wnd.kbd, dt);
 
 		if (goal.TestCollision(dude))
 		{
@@ -68,7 +68,7 @@ void Game::UpdateModel()
 			{
 				isGameOver = true;
 			}
-			poos[i].Update();
+			poos[i].Update(dt);
 		}
 	}
 	else
