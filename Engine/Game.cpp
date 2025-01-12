@@ -27,12 +27,12 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	rng(rd()),
-	xDist(0, 770),
-	yDist(0, 570),
+	xDist(0.0f, 770.0f),
+	yDist(0.0f, 570.0f),
 	goal(xDist(rng), yDist(rng)),
 	meter(20, 20)
 {
-	std::uniform_int_distribution<int> v(-1, 1);
+	std::uniform_real_distribution<float> v(-2.5f, 2.5f);
 	for (int i = 0; i < nPoos; ++i)
 	{
 		poos[i].Init(xDist(rng), yDist(rng), v(rng), v(rng));

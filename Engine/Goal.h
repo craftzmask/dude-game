@@ -5,16 +5,16 @@
 class Goal
 {
 public:
-	Goal(int in_x, int in_y);
+	Goal(float in_x, float in_y);
 	void Draw(Graphics& gfx);
-	void Respawn(int in_x, int in_y);
+	void Respawn(float in_x, float in_y);
 	bool TestCollision(const Dude& dude) const;
 	void UpdateColor();
 private:
-	int x;
-	int y;
+	float x;
+	float y;
 	Color c = { 127, 0, 0 };
 	bool colorIncreasing = true;
-	static constexpr int width = 20;
-	static constexpr int height = 20;
+	static constexpr float width = 20.0f;
+	static constexpr float height = 20.0f;
 };

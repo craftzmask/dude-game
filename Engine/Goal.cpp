@@ -1,7 +1,7 @@
 #include "Goal.h"
 #include <random>
 
-Goal::Goal(int in_x, int in_y)
+Goal::Goal(float in_x, float in_y)
 {
 	x = in_x;
 	y = in_y;
@@ -9,10 +9,10 @@ Goal::Goal(int in_x, int in_y)
 
 void Goal::Draw(Graphics& gfx)
 {
-	gfx.DrawRectDim(x, y, width, height, c);
+	gfx.DrawRectDim(int(x), int(y), int(width), int(height), c);
 }
 
-void Goal::Respawn(int in_x, int in_y)
+void Goal::Respawn(float in_x, float in_y)
 {
 	x = in_x;
 	y = in_y;
@@ -20,10 +20,10 @@ void Goal::Respawn(int in_x, int in_y)
 
 bool Goal::TestCollision(const Dude& dude) const
 {
-	const int goalRight = x + width;
-	const int goalBottom = y + height;
-	const int dudeRight = dude.GetX() + dude.GetWidth();
-	const int dudeBottom = dude.GetY() + dude.GetHeight();
+	const float goalRight = x + width;
+	const float goalBottom = y + height;
+	const float dudeRight = dude.GetX() + dude.GetWidth();
+	const float dudeBottom = dude.GetY() + dude.GetHeight();
 
 	return
 		dude.GetX() <= goalRight &&

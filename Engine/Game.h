@@ -51,8 +51,8 @@ private:
 	/*  User Variables              */
 	std::random_device rd;
 	std::mt19937 rng;
-	std::uniform_int_distribution<int> xDist;
-	std::uniform_int_distribution<int> yDist;
+	std::uniform_real_distribution<float> xDist;
+	std::uniform_real_distribution<float> yDist;
 	static constexpr int nPoos = 20;
 	Dude dude;
 	Poo poos[nPoos];
