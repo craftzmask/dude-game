@@ -49,6 +49,8 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float dt = ft.Mark();
+
 	goal.UpdateColor();
 	if (isStarted && !isGameOver)
 	{
@@ -28422,13 +28424,10 @@ void Game::DrawScreenTitle(int x, int y)
 	gfx.PutPixel(147 + x, 174 + y, 208, 34, 34);
 	gfx.PutPixel(148 + x, 174 + y, 208, 34, 34);
 	gfx.PutPixel(149 + x, 174 + y, 208, 34, 34);
-
 }
 
 void Game::ComposeFrame()
 {
-	gfx.DrawCircleRing(400, 300, 100, 90, Colors::Blue);
-
 	if (!isStarted)
 	{
 		DrawScreenTitle(325, 212);
