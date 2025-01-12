@@ -336,6 +336,23 @@ void Graphics::DrawRect(int x0, int y0, int x1, int y1, Color c)
 	}
 }
 
+void Graphics::DrawCircle(int h, int k, int r, Color c)
+{
+	
+	for (int y = k - r; y <= r + k; ++y)
+	{
+		for (int x = h - r; x <= r + h; ++x)
+		{
+			const int a = x - h;
+			const int b = y - k;
+			if (a*a + b*b <= r * r)
+			{
+				PutPixel(x, y, c);
+			}
+		}
+	}
+}
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception
