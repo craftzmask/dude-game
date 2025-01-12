@@ -353,6 +353,24 @@ void Graphics::DrawCircle(int h, int k, int r, Color c)
 	}
 }
 
+void Graphics::DrawCircleRing(int h, int k, int r, int width, Color c)
+{
+	for (int y = k - r; y <= r + k; ++y)
+	{
+		for (int x = h - r; x <= r + h; ++x)
+		{
+			const int a = x - h;
+			const int b = y - k;
+			const int distance_squared = a * a + b * b;
+
+			if (distance_squared >= (r - width)*(r - width) && distance_squared <= r * r)
+			{
+				PutPixel(x, y, c);
+			}
+		}
+	}
+}
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception
