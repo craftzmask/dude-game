@@ -31,7 +31,7 @@ Game::Game(MainWindow& wnd)
 	yDist(0.0f, 570.0f),
 	goal(xDist(rng), yDist(rng)),
 	meter(20, 20)
-{
+{	
 	std::uniform_real_distribution<float> v(-2.5f * 60.0f, 2.5f * 60.0f);
 	for (int i = 0; i < nPoos; ++i)
 	{
