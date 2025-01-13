@@ -29,13 +29,13 @@ Game::Game(MainWindow& wnd)
 	rng(rd()),
 	xDist(0.0f, 770.0f),
 	yDist(0.0f, 570.0f),
-	goal(xDist(rng), yDist(rng)),
+	goal(Vec2(xDist(rng), yDist(rng))),
 	meter(20, 20)
 {	
 	std::uniform_real_distribution<float> v(-2.5f * 60.0f, 2.5f * 60.0f);
 	for (int i = 0; i < nPoos; ++i)
 	{
-		poos[i].Init(xDist(rng), yDist(rng), v(rng), v(rng));
+		poos[i].Init(Vec2(xDist(rng), yDist(rng)), Vec2(v(rng), v(rng)));
 	}
 }
 
@@ -59,7 +59,7 @@ void Game::UpdateModel()
 		if (goal.TestCollision(dude))
 		{
 			meter.IncreaseLevel();
-			goal.Respawn(xDist(rng), yDist(rng));
+			goal.Respawn(Vec2(xDist(rng), yDist(rng)));
 		}
 
 		for (int i = 0; i < nPoos; ++i)

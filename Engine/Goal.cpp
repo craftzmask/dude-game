@@ -1,35 +1,33 @@
 #include "Goal.h"
 #include <random>
 
-Goal::Goal(float in_x, float in_y)
+Goal::Goal(Vec2 pos_in)
 {
-	x = in_x;
-	y = in_y;
+	Respawn(pos_in);
 }
 
-void Goal::Draw(Graphics& gfx)
+void Goal::Draw(Graphics& gfx) const
 {
-	gfx.DrawRectDim(int(x), int(y), int(width), int(height), c);
+	gfx.DrawRectDim(int(pos.x), int(pos.y), int(width), int(height), c);
 }
 
-void Goal::Respawn(float in_x, float in_y)
+void Goal::Respawn(const Vec2 pos_in)
 {
-	x = in_x;
-	y = in_y;
+	pos = pos_in;
 }
 
 bool Goal::TestCollision(const Dude& dude) const
 {
-	const float goalRight = x + width;
-	const float goalBottom = y + height;
-	const float dudeRight = dude.GetX() + dude.GetWidth();
-	const float dudeBottom = dude.GetY() + dude.GetHeight();
+	const float goalRight = pos.x + width;
+	const float goalBottom = pos.y + height;
+	const float dudeRight = dude.GetPos().x + dude.GetWidth();
+	const float dudeBottom = dude.GetPos().y + dude.GetHeight();
 
 	return
-		dude.GetX() <= goalRight &&
-		dudeRight >= x &&
-		dudeBottom >= y &&
-		dude.GetY() <= goalBottom;
+		dude.GetPos().x <= goalRight &&
+		dudeRight >= pos.x &&
+		dudeBottom >= pos.y &&
+		dude.GetPos().y <= goalBottom;
 }
 
 void Goal::UpdateColor()

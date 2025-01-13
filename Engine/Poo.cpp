@@ -1,61 +1,58 @@
 #include "Poo.h"
 
-void Poo::Init(float in_x, float in_y, float in_vx, float in_vy)
+void Poo::Init(const Vec2 pos_in, const Vec2 vel_in)
 {
-	x = in_x;
-	y = in_y;
-	vx = in_vx;
-	vy = in_vy;
+	pos = pos_in;
+	vel = vel_in;
 }
 
 void Poo::Update(float dt)
 {
-	x += vx * dt;
-	y += vy * dt;
+	pos += vel * dt;
 
-	const float right = x + width;
-	if (x < 0)
+	const float right = pos.x + width;
+	if (pos.x < 0)
 	{
-		x = 0.0f;
-		vx = -vx;
+		pos.x = 0.0f;
+		vel.x = -vel.x;
 	}
 	else if (right >= float(Graphics::ScreenWidth))
 	{
-		x = float(Graphics::ScreenWidth - 1) - width;
-		vx = -vx;
+		pos.x = float(Graphics::ScreenWidth - 1) - width;
+		vel.x = -vel.x;
 	}
 
-	const float bottom = y + height;
-	if (y < 0)
+	const float bottom = pos.y + height;
+	if (pos.y < 0)
 	{
-		y = 0.0f;
-		vy = -vy;
+		pos.y = 0.0f;
+		vel.y = -vel.y;
 	}
 	else if (bottom >= float(Graphics::ScreenHeight))
 	{
-		y = float(Graphics::ScreenHeight - 1) - height;
-		vy = -vy;
+		pos.y = float(Graphics::ScreenHeight - 1) - height;
+		vel.y = -vel.y;
 	}
 }
 
 bool Poo::TestCollision(const Dude& dude) const
 {
-	const float pooRight = x + width;
-	const float pooBottom = y + height;
-	const float dudeRight = dude.GetX() + dude.GetWidth();
-	const float dudeBottom = dude.GetY() + dude.GetHeight();
+	const float pooRight = pos.x + width;
+	const float pooBottom = pos.y + height;
+	const float dudeRight = dude.GetPos().x + dude.GetWidth();
+	const float dudeBottom = dude.GetPos().y + dude.GetHeight();
 
 	return
-		dude.GetX() <= pooRight &&
-		dudeRight >= x &&
-		dudeBottom >= y &&
-		dude.GetY() <= pooBottom;
+		dude.GetPos().x <= pooRight &&
+		dudeRight >= pos.x &&
+		dudeBottom >= pos.y &&
+		dude.GetPos().y <= pooBottom;
 }
 
 void Poo::Draw(Graphics& gfx) const
 {
-	const int x_int = int(x);
-	const int y_int = int(y);
+	const int x_int = int(pos.x);
+	const int y_int = int(pos.y);
 
 	gfx.PutPixel(14 + x_int, 0 + y_int, 138, 77, 0);
 	gfx.PutPixel(7 + x_int, 1 + y_int, 138, 77, 0);
