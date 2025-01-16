@@ -2,24 +2,51 @@
 
 void Dude::Update(const Keyboard& kbd, float dt)
 {
+	Vec2 vel = { 0.0f, 0.0f };
+
 	if (kbd.KeyIsPressed(VK_UP))
 	{
-		pos.y -= speed * dt;
+		vel.y += -1.0f;
 	}
 	if (kbd.KeyIsPressed(VK_DOWN))
 	{
-		pos.y += speed * dt;
+		vel.y += 1.0f;
 	}
 	if (kbd.KeyIsPressed(VK_LEFT))
 	{
-		pos.x -= speed * dt;
+		vel.x += -1.0f;
 	}
 	if (kbd.KeyIsPressed(VK_RIGHT))
 	{
-		pos.x += speed * dt;
+		vel.x += 1.0f;
 	}
 
+	pos += vel.GetNormalize() * speed * dt;
+
 	ClampToScreen();
+}
+
+void Dude::Update(const Mouse& mouse, float dt)
+{
+	Vec2 vel = { 0.0f, 0.0f };
+	if (mouse.LeftIsPressed())
+	{
+		Vec2 center = pos + Vec2(width / 2.0f, height / 2.0f);
+		Vec2 mousePos = Vec2(float(mouse.GetPosX()), float(mouse.GetPosY()));
+		Vec2 toPointer = mousePos - center;
+
+		// dude will teleport to the exact cursor
+		// position when the length is too small
+		// Otherwise, dude will be vibrating
+		if (toPointer.GetLength() < speed * dt)
+		{
+			pos = mousePos - Vec2(width / 2.0f, height / 2.0f);
+		}
+		else
+		{
+			pos += toPointer.GetNormalize() * speed * dt;
+		}
+	}
 }
 
 void Dude::ClampToScreen()

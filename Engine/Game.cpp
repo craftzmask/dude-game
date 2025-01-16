@@ -54,8 +54,7 @@ void Game::UpdateModel()
 	goal.UpdateColor();
 	if (isStarted && !isGameOver)
 	{
-		dude.Update(wnd.kbd, dt);
-
+		dude.Update(wnd.mouse, dt);
 		if (goal.TestCollision(dude))
 		{
 			meter.IncreaseLevel();
